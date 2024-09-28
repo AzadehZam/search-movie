@@ -1,0 +1,46 @@
+name: CI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Check out the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    # Install dependencies for frontend
+    - name: Install Frontend Dependencies
+      working-directory: ./frontend
+      run: npm install
+
+    # Install dependencies for backend
+    - name: Install Backend Dependencies
+      working-directory: ./backend
+      run: npm install
+
+    # Run frontend tests (optional)
+    - name: Run Frontend Tests
+      working-directory: ./frontend
+      run: npm test
+
+    # Run backend tests (optional)
+    - name: Run Backend Tests
+      working-directory: ./backend
+      run: npm test
+
+    # Build the frontend
+    - name: Build Frontend
+      working-directory: ./frontend
+      run: npm run build
+
+    # Deploy
+    - name: Deploy
+        if: github.ref == 'refs/heads/master'
+        run: vercel --prod 
