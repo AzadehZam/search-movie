@@ -25,16 +25,9 @@ function App() {
   const saveMovieDataToLocalStorage = (title, data) => {
     let cachedMovies = JSON.parse(localStorage.getItem("cachedMovies")) || [];
 
-    const existingIndex = cachedMovies.findIndex(
-      (movie) => movie.title === title
-    );
-
-    if (existingIndex !== -1) {
-      cachedMovies.splice(existingIndex, 1);
-    } else if (cachedMovies.length >= MAX_CACHE_SIZE) {
+    if (cachedMovies.length >= MAX_CACHE_SIZE) {
       cachedMovies.shift();
     }
-
     cachedMovies.push({ title, data });
 
     localStorage.setItem("cachedMovies", JSON.stringify(cachedMovies));
