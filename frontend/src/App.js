@@ -45,9 +45,9 @@ function App() {
 
     setLoading(true);
     try {
-      const response = await fetch(
-        `http://localhost:4000/searchMovie?title=${title}`
-      );
+      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
+
+      const response = await fetch(`${API_URL}/searchMovie?title=${title}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
