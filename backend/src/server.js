@@ -37,8 +37,19 @@ const rateLimiter = (ip) => {
 };
 
 const server = http.createServer(async (req, res) => {
-  // Set CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  //Set CORS Header
+  // Set allowed origins
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "https://search-movie-dxax1kazo-azadehzams-projects.vercel.app",
+  ];
+
+  // Check if the request origin is allowed
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Max-Age", 86400); // Cache the preflight request for 1 day
@@ -110,7 +121,8 @@ const server = http.createServer(async (req, res) => {
     res.end("Unsupported Route");
   }
 });
+const PORT = process.env.PORT || 4000; // Use the dynamic port provided by Heroku or fall back to 4000
 
-server.listen(4000, () => {
-  console.log(`Server is running on port 4000`);
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

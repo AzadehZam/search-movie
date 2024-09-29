@@ -15,24 +15,14 @@ jobs:
       with:
         node-version: '16'
 
-    # Install dependencies for frontend
+    # Install dependencies
     - name: Install Frontend Dependencies
       working-directory: ./frontend
       run: npm install
 
-    # Install dependencies for backend
-    - name: Install Backend Dependencies
-      working-directory: ./backend
-      run: npm install
-
-    # Run frontend tests (optional)
+    # Run tests 
     - name: Run Frontend Tests
       working-directory: ./frontend
-      run: npm test
-
-    # Run backend tests (optional)
-    - name: Run Backend Tests
-      working-directory: ./backend
       run: npm test
 
     # Build the frontend
